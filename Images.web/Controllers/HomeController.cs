@@ -53,7 +53,7 @@ namespace Images.web.Controllers
         
         public IActionResult ViewImage(int id)
         {
-            var cookieValue = Request.Cookies["has-been-here"];
+            var cookieValue = Request.Cookies[$"{id}"];
             bool hasBeenHere = cookieValue != null;
             SingleImageViewModel vm = new SingleImageViewModel();
             if (hasBeenHere)
@@ -66,7 +66,7 @@ namespace Images.web.Controllers
             }
             if (!hasBeenHere)
             {
-                Response.Cookies.Append("has-been-here", "true");
+                Response.Cookies.Append($"{id}", $"{id}");
             }
             var connectionString = _configuration.GetConnectionString("ConnectionString");
             var repository = new ImagesRepository(connectionString);
